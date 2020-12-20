@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\homeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('welcome');
 });
+// passage par action dans un controlleur
+Route::get('/',[homeController::class,"index"]);
+//route parametré passant par action dans controleur
+Route::get("/produit/{i}/buyers/{v}",[homeController::class,"testAction"]);
+//passage direct vers view sans controlleur lorsque l'action n' a pas des taches logiques
+Route::view("/testview","testview");
+//creation de route parametré sans passé par controlleur
+Route::get("/ps/{u}", function($u){
+    return view('vp',['user'=>$u]);
+});
+
